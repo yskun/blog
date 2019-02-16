@@ -2,7 +2,8 @@
 
 ## JavaScript
 ### 使用Angular cli升级AngularJS项目
-1. [（一）引导运行混合应用](angularjs升级/doc.md)
+1. [（一）引导运行混合应用](使用Angular-cli升级AngularJS项目1/doc.md)
+1. [（一）引导运行混合应用](使用Angular-cli升级AngularJS项目2/doc.md)
 
 ## License
 所有文章均适用下述许可证  

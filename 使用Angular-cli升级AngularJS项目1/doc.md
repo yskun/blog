@@ -7,11 +7,15 @@
 框架：AngularJS 1.6 -> AngularJS 1.6 + Angular 7  
 应用结构：多个AngularJS应用 -> 主项目：Angular、卫星项目：AngularJS  
 
+### 系列文章
+1. [（一）引导运行混合应用](/使用Angular-cli升级AngularJS项目1/doc.md)
+2. [（二）同步混合应用路由的状态](/使用Angular-cli升级AngularJS项目2/doc.md)
+
 ### 在这个系列文章中涉及到
 1. Angular与AngularJS如何共存开发
 2. 使用Angular Cli编译及开发Angular、AngularJS混合应用  
+3. 如何在Hash模式中同步AngularJS、Angular的路由  
 ---下面是坑，待填
-3. 如何在Hash模式中同步AngularJS、Angular的路由
 4. 在gulp或其他自动化构建工具中使用Angular CLI
 5. 在Angular中使用AngularJS的组件
 6. 在AngularJS中使用Angular的组件
