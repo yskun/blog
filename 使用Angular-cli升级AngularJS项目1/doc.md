@@ -165,3 +165,9 @@ export class AppModule implements DoBootstrap {
 1. [从 AngularJS 升级到 Angular
 ](https://angular.cn/guide/upgrade)  
 2. [升级 AngularJS 至 Angular](https://www.cnblogs.com/sghy/p/9150346.html)
+
+
+## License
+文章适用下述许可证  
+[![知识共享许可协议](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)  
+本作品采用[知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议](http://creativecommons.org/licenses/by-nc-sa/4.0/)进行许可。

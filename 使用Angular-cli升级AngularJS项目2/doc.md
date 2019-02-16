@@ -113,7 +113,7 @@ export class AppModule implements DoBootstrap {
 笔者曾经直接使用``setUpLocationSync``这个方法导致笔者直接怀疑人生。毕竟，这是官方的东西，怎么可能这么容易出现问题呢？如果不是``setUpLocationSync``的问题，那应该就是出现在路由件配置的问题吧。折腾了许久，直到笔者翻阅了它的源码，终于发现原来问题就是出在``setUpLocationSync``本身上，它并不兼容路由器hash mode，只考虑了history mode。  
 那么如果需要在hash mode下同步路由状态，则需要手动去实现这个函数。原理上不是很复杂，ng1中存在一个钩子``$locationChangeStart``，当触发这个事件时，将hash参数作为URL传递给ng的Router即可。
 在本文的例子中在原有的``setUpLocationSync``实现了路由器间的同步，可以参考下述的实现：
-[location-sync.service.ts]()
+[location-sync.service.ts](https://github.com/yskun/angular-phonecat-upgrade/blob/master/src/location-sync.service.ts)
 
 ## 附：相邻路由出口？
 在参考文章中[升级 AngularJS 至 Angular](https://www.cnblogs.com/sghy/p/9150346.html)提到了“相邻路由出口”这个概念，在实际运用中，可以做一些如懒加载的ng1的模块等实现。需要注意的是，如果在组件（Component）中放入ng1的入口，那么调用UpgradeModule.bootstrap需要在该组件视图加载完毕后，如``ngAfterViewInit``钩子等等。
