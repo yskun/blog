@@ -19,9 +19,10 @@
 AngularJS的例子项目[angular-phonecat](https://github.com/angular/angular-phonecat)
 
 ## 一、路由的管理
-在上篇文章中，项目已经基本能正常运行了。但在这里面还有不少的BUG：  
+在上篇文章中，项目已经基本能正常运行了。但其实在项目里还有许多未解决的问题，其中包括：  
 1. 两个框架中的路由状态不同步。
 2. 在切换路由后，刷新页面，路由消失。  
+
 在项目中使用的是双路由的策略。即ng1（AngularJS）、ngx（Angular）各自的页面其实还是用相应的路由进行管理的。因此，两个路由间需要一个“桥梁”进行通信，让他们彼此间的数据进行同步，而这个“桥梁”官方早已为我们提供好了，那就是``setUpLocationSync``。  
 在使用“桥梁”进行通信前，还需对路由进行改造，让它们更符合我们项目的需求。  
 
@@ -98,7 +99,7 @@ ALL DONE...
 
 ## 四、同步你的路由状态
 现在，就让它们的状态同步吧。  
-在history mode下非常简单。只需用到官方提供的``setUpLocationSync``即可。
+在history mode下非常简单。只需用到官方提供的``setUpLocationSync``即可。  
 ``` TypeScript
 export class AppModule implements DoBootstrap {
 
@@ -110,13 +111,23 @@ export class AppModule implements DoBootstrap {
  }
 ```
 那在hash mode下呢？那就没这么简单了。  
-笔者曾经直接使用``setUpLocationSync``这个方法导致笔者直接怀疑人生。毕竟，这是官方的东西，怎么可能这么容易出现问题呢？如果不是``setUpLocationSync``的问题，那应该就是出现在路由件配置的问题吧。折腾了许久，直到笔者翻阅了它的源码，终于发现原来问题就是出在``setUpLocationSync``本身上，它并不兼容路由器hash mode，只考虑了history mode。  
-那么如果需要在hash mode下同步路由状态，则需要手动去实现这个函数。原理上不是很复杂，ng1中存在一个钩子``$locationChangeStart``，当触发这个事件时，将hash参数作为URL传递给ng的Router即可。
-在本文的例子中在原有的``setUpLocationSync``实现了路由器间的同步，可以参考下述的实现：
+笔者曾经直接使用``setUpLocationSync``这个方法导致笔者直接怀疑人生——每次跳转路由都会出现死循环。
+为什么会出现这种情况呢？``setUpLocationSync``这个方法是``@angular/router``提供的函数，一般不会出现问题。但这次导致循环的问题，就是出现在这个函数身上。在[upgrage.ts](https://github.com/angular/angular/blob/master/packages/router/upgrade/src/upgrade.ts#L76)中，可以看到
+``` JavaScript
+  ngUpgrade.$injector.get('$rootScope')
+      .$on('$locationChangeStart', (_: any, next: string, __: string) => {
+        const url = resolveUrl(next);
+        const path = location.normalize(url.pathname);
+        router.navigateByUrl(path + url.search + url.hash);
+      });
+```
+在ng1触发locationChangeStart这个事件后，这个函数直接将URL中的`path + url.search + url.hash`传递给ngx的Router，然而hash mode中应该需要将hash作为路径传递。因此，要在hash mode中同步状态，需要将``router.navigateByUrl(path + url.search + url.hash);``改为``this.router.navigateByUrl(url.hash + url.search)``。  
+在本文的例子中在原有的``setUpLocationSync``的基础上实现了路由器的同步：
 [location-sync.service.ts](https://github.com/yskun/angular-phonecat-upgrade/blob/master/src/location-sync.service.ts)
 
 ## 附：相邻路由出口？
-在参考文章中[升级 AngularJS 至 Angular](https://www.cnblogs.com/sghy/p/9150346.html)提到了“相邻路由出口”这个概念，在实际运用中，可以做一些如懒加载的ng1的模块等实现。需要注意的是，如果在组件（Component）中放入ng1的入口，那么调用UpgradeModule.bootstrap需要在该组件视图加载完毕后，如``ngAfterViewInit``钩子等等。
+在参考文章中[升级 AngularJS 至 Angular](https://www.cnblogs.com/sghy/p/9150346.html)提到了“相邻路由出口”。  
+在实际运用中，通过它可以做一些如懒加载的ng1的模块等实现。需要注意的是，如果在组件（Component）中放入ng1的入口，那么调用UpgradeModule.bootstrap需要在该组件视图加载完毕后，如``ngAfterViewInit``钩子等等。
 
 ## 源码
 在此，你可以获取到本文修改后的angular-phonecat项目。
