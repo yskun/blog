@@ -45,10 +45,13 @@ DOM是数据的一种自然映射，通过操作数据驱动视图层变化。
 
 ## Vue是如何实现数据绑定的
 在Vue 2中，数据绑定是通过Object.defineProperty实现的，在初始化Vue实例时，vue根据data，生成observe实例，并依次为其属性“defineReactive”(设定get，set)。当数据“set”时，将会“notify”通知各个“subscriber”订阅者(如：watcher)。从而实现数据的响应。  
-在Vue 3中，则通过es6对象Proxy实现数据绑定。通过Proxy对象，将Vue长期存在的局限性——无法监视属性的增删进行了补充。
+Dep\Observe\watcher
 
-## Vue与Dom间的交互（虚拟DOM）
+在Vue 3中，则通过es6对象Proxy实现数据监视机制。主要的区别在于Object.defineProperty是对其现有属性进行处理的。而Proxy则是代理整个对象。通过代理对象，实现对对象的监查，无需对各个属性进行处理，从而提高性能。
 
+## Vue与DOM间的交互（虚拟DOM）
+Vue进行DOM操作是通过一层Virtual DOM进行操作的，他的存在意义不在于“操作VDOM比DOM快”。而是，将对DOM的操作集中在一次中，并通过diff算法，最小化需要进行处理的DOM队列。从而减少浏览器reflow及repaint的操作。  
+此外，VDOM还能在运行在不存在DOM的环境中。    
 
 ## Vue与其他框架的区别
 
