@@ -55,7 +55,8 @@ Vue进行DOM操作是通过一层Virtual DOM进行操作的，他的存在意义
 
 ## Vue与其他框架的区别
 
-## keep-alive的实现原理
+## keep-alive的实现
+keep-alive一个内置于Vue的
 
 ## Vue的单向数据流
 

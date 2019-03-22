@@ -6,6 +6,8 @@
 2. [（二）同步混合应用路由的状态](使用Angular-cli升级AngularJS项目2/doc.md)
 3. [（三）自动化部署](使用Angular-cli升级AngularJS项目2/doc.md)
 
+### 杂碎的知识
+
 ## License
 所有原创文章除特殊标注外均适用下述许可证  
 [![知识共享许可协议](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)  
