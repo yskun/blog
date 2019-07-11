@@ -4,7 +4,9 @@
 ### 使用Angular cli升级AngularJS项目
 1. [（一）引导运行混合应用](使用Angular-cli升级AngularJS项目1/doc.md)
 2. [（二）同步混合应用路由的状态](使用Angular-cli升级AngularJS项目2/doc.md)
-3. [（三）自动化部署](使用Angular-cli升级AngularJS项目2/doc.md)
+
+### 优化
+1. [Vue项目减肥之旅（前端项目体积精简的几种方法）](优化/优化你的项目.md)
 
 ### 杂碎的知识
 
