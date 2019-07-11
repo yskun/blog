@@ -10,6 +10,9 @@
 
 ### 杂碎的知识
 
+## Link
+[掘金(同步)](https://juejin.im/user/5c64c2276fb9a049fb442a2f)
+
 ## License
 所有原创文章除特殊标注外均适用下述许可证  
 [![知识共享许可协议](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)  
